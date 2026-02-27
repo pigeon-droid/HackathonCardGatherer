@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { ScryfallCard, ScryfallSet, scryfallAPI } from '../services/ScryfallAPI';
 import Card from '../types/Card';
+import { sortColors } from '../utils/colorUtils';
 import '../styles/CardGallery.css';
 
-const sortColors = (colors: string[]): string[] => {
-  const colorOrder: Record<string, number> = { 'W': 0, 'U': 1, 'B': 2, 'R': 3, 'G': 4 };
-  return [...colors].sort((a, b) => (colorOrder[a] ?? 99) - (colorOrder[b] ?? 99));
-};
 
 interface CardGalleryProps {
   set: ScryfallSet | null;

@@ -1,11 +1,14 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
+import Card from './types/Card';
+import { ScryfallSet } from './services/ScryfallAPI';
+import { sortColors } from './utils/colorUtils';
+import { loadCardsFromStorage, saveCardsToStorage } from './utils/storageUtils';
+import './styles/App.css';
+
 const SetsBrowser = lazy(() => import('./components/SetsBrowser'));
 const CardGallery = lazy(() => import('./components/CardGallery'));
 const CardList = lazy(() => import('./components/CardList'));
 const QuickAdd = lazy(() => import('./components/QuickAdd'));
-import Card from './types/Card';
-import { ScryfallSet } from './services/ScryfallAPI';
-import './styles/App.css';
 
 const App: React.FC = () => {
   const [cards, setCards] = useState<Card[]>([]);
@@ -13,24 +16,16 @@ const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'browse' | 'collection' | 'quick-add'>('browse');
   const [hasLoaded, setHasLoaded] = useState(false);
 
-  // Helper to sort colors in WUBRG order
-  const sortColors = (colors: string[]): string[] => {
-    const colorOrder: Record<string, number> = { 'W': 0, 'U': 1, 'B': 2, 'R': 3, 'G': 4 };
-    return [...colors].sort((a, b) => (colorOrder[a] ?? 99) - (colorOrder[b] ?? 99));
-  };
 
   // Load cards from localStorage on mount
   useEffect(() => {
-    const savedCards = localStorage.getItem('mtgCards');
-    if (savedCards) {
-      const loadedCards = JSON.parse(savedCards);
-      // Migrate: ensure colors are sorted in WUBRG order
-      const migratedCards = loadedCards.map((card: Card) => ({
-        ...card,
-        colors: sortColors(card.colors || [])
-      }));
-      setCards(migratedCards);
-    }
+    const loadedCards = loadCardsFromStorage();
+    // Migrate: ensure colors are sorted in WUBRG order
+    const migratedCards = loadedCards.map((card: Card) => ({
+      ...card,
+      colors: sortColors(card.colors || [])
+    }));
+    setCards(migratedCards);
     setHasLoaded(true);
   }, []);
 
@@ -39,7 +34,7 @@ const App: React.FC = () => {
     if (!hasLoaded) {
       return;
     }
-    localStorage.setItem('mtgCards', JSON.stringify(cards));
+    saveCardsToStorage(cards);
   }, [cards, hasLoaded]);
 
   const addCard = (card: Card) => {

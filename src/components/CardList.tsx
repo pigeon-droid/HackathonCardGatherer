@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Card from '../types/Card';
+import { sortColors, ALL_COLORS, COLOR_NAMES, ALL_RARITIES, RARITY_NAMES } from '../utils/colorUtils';
+import { openScryfallCard } from '../utils/scryfallUtils';
 import '../styles/CardList.css';
 
 interface CardListProps {
@@ -24,29 +26,6 @@ const CardList: React.FC<CardListProps> = ({ cards, onRemoveCard, onUpdateQuanti
   const [displayMode, setDisplayMode] = useState<DisplayMode>('grouped');
   const [foilAnimated, setFoilAnimated] = useState(true);
 
-  const allColors = ['W', 'U', 'B', 'R', 'G', 'C'];
-  const colorNames: Record<string, string> = {
-    'W': 'White',
-    'U': 'Blue',
-    'B': 'Black',
-    'R': 'Red',
-    'G': 'Green',
-    'C': 'Colorless'
-  };
-
-  const allRarities = ['common', 'uncommon', 'rare', 'mythic'];
-  const rarityNames: Record<string, string> = {
-    'common': 'Common',
-    'uncommon': 'Uncommon',
-    'rare': 'Rare',
-    'mythic': 'Mythic'
-  };
-
-  // Sort colors in WUBRG order
-  const sortColors = (colors: string[]): string[] => {
-    const colorOrder: Record<string, number> = { 'W': 0, 'U': 1, 'B': 2, 'R': 3, 'G': 4, 'C': 5 };
-    return [...colors].sort((a, b) => (colorOrder[a] ?? 99) - (colorOrder[b] ?? 99));
-  };
 
   const toggleColor = (color: string) => {
     const newColors = new Set(selectedColors);
@@ -325,12 +304,12 @@ const CardList: React.FC<CardListProps> = ({ cards, onRemoveCard, onUpdateQuanti
         <div className="color-filters">
           <span className="filter-label">Colors:</span>
           <div className="color-buttons">
-            {allColors.map(color => (
+            {ALL_COLORS.map(color => (
               <button
                 key={color}
                 className={`color-filter-btn color-${color.toLowerCase()} ${selectedColors.has(color) ? 'active' : ''}`}
                 onClick={() => toggleColor(color)}
-                title={colorNames[color]}
+                title={COLOR_NAMES[color]}
               >
                 {color}
               </button>
@@ -349,14 +328,14 @@ const CardList: React.FC<CardListProps> = ({ cards, onRemoveCard, onUpdateQuanti
         <div className="rarity-filters">
           <span className="filter-label">Rarity:</span>
           <div className="rarity-buttons">
-            {allRarities.map(rarity => (
+            {ALL_RARITIES.map(rarity => (
               <button
                 key={rarity}
                 className={`rarity-filter-btn rarity-${rarity} ${selectedRarities.has(rarity) ? 'active' : ''}`}
                 onClick={() => toggleRarity(rarity)}
-                title={rarityNames[rarity]}
+                title={RARITY_NAMES[rarity]}
               >
-                {rarityNames[rarity]}
+                {RARITY_NAMES[rarity]}
               </button>
             ))}
           </div>
@@ -492,16 +471,14 @@ const CardList: React.FC<CardListProps> = ({ cards, onRemoveCard, onUpdateQuanti
                     alt={card.name}
                     className={`card-image ${card.isFoil ? 'foil-effect' : ''}`}
                     onClick={() => {
-                      const scryfallUrl = `https://scryfall.com/card/${card.set.toLowerCase()}/${card.collectorNumber}`;
-                      window.open(scryfallUrl, '_blank');
+                      openScryfallCard(card.set, card.collectorNumber);
                     }}
                     style={{ cursor: 'pointer' }}
                     role="link"
                     tabIndex={0}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' || e.key === ' ') {
-                        const scryfallUrl = `https://scryfall.com/card/${card.set.toLowerCase()}/${card.collectorNumber}`;
-                        window.open(scryfallUrl, '_blank');
+                        openScryfallCard(card.set, card.collectorNumber);
                       }
                     }}
                   />
@@ -522,16 +499,14 @@ const CardList: React.FC<CardListProps> = ({ cards, onRemoveCard, onUpdateQuanti
                   <div
                     className="card-name"
                     onClick={() => {
-                      const scryfallUrl = `https://scryfall.com/card/${card.set.toLowerCase()}/${card.collectorNumber}`;
-                      window.open(scryfallUrl, '_blank');
+                      openScryfallCard(card.set, card.collectorNumber);
                     }}
                     style={{ cursor: 'pointer' }}
                     role="link"
                     tabIndex={0}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' || e.key === ' ') {
-                        const scryfallUrl = `https://scryfall.com/card/${card.set.toLowerCase()}/${card.collectorNumber}`;
-                        window.open(scryfallUrl, '_blank');
+                        openScryfallCard(card.set, card.collectorNumber);
                       }
                     }}
                   >
@@ -663,16 +638,14 @@ const CardList: React.FC<CardListProps> = ({ cards, onRemoveCard, onUpdateQuanti
                         alt={card.name}
                         className={`card-image ${card.isFoil ? 'foil-effect' : ''}`}
                         onClick={() => {
-                          const scryfallUrl = `https://scryfall.com/card/${card.set.toLowerCase()}/${card.collectorNumber}`;
-                          window.open(scryfallUrl, '_blank');
+                          openScryfallCard(card.set, card.collectorNumber);
                         }}
                         style={{ cursor: 'pointer' }}
                         role="link"
                         tabIndex={0}
                         onKeyDown={(e) => {
                           if (e.key === 'Enter' || e.key === ' ') {
-                            const scryfallUrl = `https://scryfall.com/card/${card.set.toLowerCase()}/${card.collectorNumber}`;
-                            window.open(scryfallUrl, '_blank');
+                            openScryfallCard(card.set, card.collectorNumber);
                           }
                         }}
                       />
@@ -693,16 +666,14 @@ const CardList: React.FC<CardListProps> = ({ cards, onRemoveCard, onUpdateQuanti
                       <div
                         className="card-name"
                         onClick={() => {
-                          const scryfallUrl = `https://scryfall.com/card/${card.set.toLowerCase()}/${card.collectorNumber}`;
-                          window.open(scryfallUrl, '_blank');
+                          openScryfallCard(card.set, card.collectorNumber);
                         }}
                         style={{ cursor: 'pointer' }}
                         role="link"
                         tabIndex={0}
                         onKeyDown={(e) => {
                           if (e.key === 'Enter' || e.key === ' ') {
-                            const scryfallUrl = `https://scryfall.com/card/${card.set.toLowerCase()}/${card.collectorNumber}`;
-                            window.open(scryfallUrl, '_blank');
+                            openScryfallCard(card.set, card.collectorNumber);
                           }
                         }}
                       >

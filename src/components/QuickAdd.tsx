@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ScryfallCard, scryfallAPI } from '../services/ScryfallAPI';
 import Card from '../types/Card';
+import { sortColors } from '../utils/colorUtils';
 import '../styles/CardGallery.css';
 
 interface QuickAddProps {
@@ -8,10 +9,6 @@ interface QuickAddProps {
   collectionCards: Card[];
 }
 
-const sortColors = (colors: string[]): string[] => {
-  const colorOrder: Record<string, number> = { 'W': 0, 'U': 1, 'B': 2, 'R': 3, 'G': 4 };
-  return [...colors].sort((a, b) => (colorOrder[a] ?? 99) - (colorOrder[b] ?? 99));
-};
 
 const QuickAdd: React.FC<QuickAddProps> = ({ onAddCard, collectionCards }) => {
   const [searchQuery, setSearchQuery] = useState('');

@@ -1,0 +1,428 @@
+.card-gallery {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.quick-search {
+  margin-bottom: 16px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.quick-search-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.quick-search-header h3 {
+  color: #e0e6ed;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.quick-search-header span {
+  color: #8a9bb2;
+  font-size: 0.8rem;
+}
+
+.quick-search-input input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: #e0e6ed;
+  font-size: 0.9rem;
+}
+
+.quick-search-input input:focus {
+  outline: none;
+  border-color: rgba(102, 126, 234, 0.6);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+.search-results {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 8px;
+}
+
+.search-result-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.search-result-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(102, 126, 234, 0.4);
+}
+
+.search-result-card img {
+  width: 40px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.search-result-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.search-result-name {
+  color: #e0e6ed;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.search-result-set {
+  color: #8a9bb2;
+  font-size: 0.75rem;
+}
+
+.search-error {
+  margin-top: 8px;
+  color: #ff6464;
+  font-size: 0.85rem;
+}
+
+.search-loading {
+  margin-top: 8px;
+  color: #a0aec0;
+  font-size: 0.85rem;
+}
+
+.gallery-header {
+  margin-bottom: 16px;
+}
+
+.gallery-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.foil-toggle-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.gallery-header h3 {
+  color: #e0e6ed;
+  font-size: 1.2rem;
+  margin: 0 0 4px 0;
+}
+
+.gallery-header p {
+  color: #a0aec0;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.foil-toggle-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+  color: #e0e6ed;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.foil-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 215, 0, 0.5);
+}
+
+.foil-toggle-btn.active {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 165, 0, 0.2) 100%);
+  border-color: rgba(255, 215, 0, 0.8);
+  color: #ffd700;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.3);
+}
+
+.gallery-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  color: #a0aec0;
+  font-size: 1.1rem;
+}
+
+.gallery-error {
+  padding: 16px;
+  background: rgba(255, 100, 100, 0.1);
+  border: 1px solid rgba(255, 100, 100, 0.3);
+  border-radius: 8px;
+  color: #ff6464;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.gallery-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.gallery-card {
+  position: relative;
+  aspect-ratio: 63/88;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.card-flip-btn {
+  position: absolute;
+  bottom: 6px;
+  left: 6px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(15, 20, 25, 0.7);
+  color: #e0e6ed;
+  font-size: 0.7rem;
+  cursor: pointer;
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+
+.card-flip-btn:hover {
+  background: rgba(102, 126, 234, 0.35);
+  border-color: rgba(102, 126, 234, 0.7);
+}
+
+.gallery-card:hover {
+  border-color: rgba(102, 126, 234, 0.5);
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+.gallery-card.in-collection {
+  border-color: rgba(100, 200, 100, 0.6);
+}
+
+.in-collection-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 24px;
+  height: 24px;
+  background: rgba(100, 200, 100, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.card-name {
+  color: #e0e6ed;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+.gallery-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: #a0aec0;
+  font-size: 0.9rem;
+}
+
+.load-more-btn {
+  margin-top: 16px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-self: center;
+}
+
+.load-more-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.gallery-end {
+  text-align: center;
+  padding: 16px;
+  color: #a0aec0;
+  font-size: 0.9rem;
+  margin-top: 12px;
+}
+
+/* Scrollbar styling */
+.gallery-grid::-webkit-scrollbar {
+  width: 6px;
+}
+
+.gallery-grid::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+}
+
+.gallery-grid::-webkit-scrollbar-thumb {
+  background: rgba(102, 126, 234, 0.4);
+  border-radius: 10px;
+}
+
+.gallery-grid::-webkit-scrollbar-thumb:hover {
+  background: rgba(102, 126, 234, 0.6);
+}
+
+@media (max-width: 1024px) {
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 8px;
+  }
+
+  .gallery-card-wrapper {
+    gap: 4px;
+  }
+
+  .card-name {
+    font-size: 0.7rem;
+  }
+}
+
+.search-result-badge {
+  position: absolute;
+  top: 6px;
+  left: 34px;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: rgba(100, 200, 100, 0.9);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+.search-result-card .card-flip-btn {
+  bottom: 6px;
+  left: 6px;
+  position: absolute;
+}
+
+.gallery-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.gallery-card.foil-mode {
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery-card.foil-mode::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 25%,
+    rgba(255, 0, 0, 0.2) 30%,
+    rgba(255, 165, 0, 0.25) 35%,
+    rgba(255, 255, 0, 0.3) 40%,
+    rgba(0, 255, 0, 0.25) 45%,
+    rgba(0, 255, 255, 0.3) 50%,
+    rgba(0, 100, 255, 0.25) 55%,
+    rgba(138, 43, 226, 0.3) 60%,
+    rgba(255, 255, 255, 0.15) 65%,
+    transparent 75%
+  );
+  animation: foilShimmer 3s infinite linear;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.gallery-card.foil-static::before {
+  animation: none;
+  transform: translateX(0) translateY(0) rotate(45deg);
+}
+
+@keyframes foilShimmer {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
+.foil-effect {
+  /* No filter - shimmer animation provides the foil effect */
+}
+
+.gallery-card.foil-mode .in-collection-badge,
+.gallery-card.foil-mode .card-flip-btn {
+  z-index: 2;
+}
